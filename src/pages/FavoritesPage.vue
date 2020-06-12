@@ -1,0 +1,81 @@
+<template>
+    <div>
+        <h1>Favorite Recipes</h1>
+        <RecipePreview
+                v-for="r in recipes"
+                :id="r.id"
+                :title="r.title"
+                :ready-in-minutes="r.readyInMinutes"
+                :image="r.image"
+                :aggregate-likes="r.aggregateLikes"
+                :vegetarian="r.vegetarian"
+                :vegan="r.vegan"
+                :gluten-free="r.glutenFree"
+                :in-favorites="r.inFavorites"
+                :watched="r.watched"
+                :key="r.id"
+        />
+    </div>
+</template>
+
+<script>
+    import RecipePreview from "../components/RecipePreview";
+    export default {
+        components: {
+            RecipePreview,
+        },
+        data() {
+            return {
+                recipes: [],
+                recipeChosen: {}
+            };
+        },
+        mounted() {
+            this.getFavorites();
+        },
+        methods:{
+            async getFavorites(){
+                let response;
+                try {
+                    this.axios.defaults.withCredentials = true;
+
+                    await this.axios.post("http://localhost:3000/auth/login", {
+                        username: "seanav",
+                        password: "s1234!"
+                    });
+
+                    response = await this.axios.get(
+                        "http://localhost:3000/users/favorites"
+                    );
+
+                    this.recipes = [];
+                    let ids = "[";
+                    response.data.forEach(recipe => {
+                        ids = ids + recipe.id + ",";
+                    });
+                    ids = ids.substring(0, ids.length - 1) + "]";
+
+                    const infos = await this.axios.get(
+                        "http://localhost:3000/users/userRecipeInfo/" + ids
+                    );
+                    console.log(infos);
+                    response.data.forEach(recipe => {
+                        for (const [key, value] of Object.entries(infos.data)) {
+                            if (recipe.id == key) {
+                                recipe.watched = value.watched;
+                                recipe.inFavorites = value.inFavorites;
+                            }
+                        }
+                    });
+                    this.recipes.push(...response.data);
+                } catch (error) {
+                    this.recipes.push(...response.data);
+                }
+            }
+        }
+    }
+</script>
+
+<style scoped>
+
+</style>
