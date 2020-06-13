@@ -1,7 +1,7 @@
 <template>
-  <div class="row">
+  <div >
+    <NavBar></NavBar>
     <div class="column">
-      <NavBar></NavBar>
       <RecipePreview
         v-for="r in recipes"
         :id="r.id"

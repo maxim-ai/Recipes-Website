@@ -1,8 +1,8 @@
 
 <template>
-    <div>
+    <div style="text-align:center" >
         <NavBar/>
-        <h1>Search recipes</h1>
+        <h1 >Search recipes</h1>
         <input
                 v-model="searchQuery"
                 type="text"
@@ -10,8 +10,9 @@
                 required
         />
         <button @click="search">search</button>
-        <br />
-        <b-form-group label="Choose number of results:">
+        <br>
+        <br>
+        <b-form-group label="Number of results:">
             <b-form-radio-group
                     v-model="selectedNum"
                     :options="optionsNum"
@@ -19,22 +20,23 @@
             ></b-form-radio-group>
         </b-form-group>
 
-        <b-form-group label="Choose filter categories:">
-            <b-form-select class="w-25" v-model="selectedCuisine" :options="optionsCuisine"></b-form-select>
-            <br />
+        <b-form-group label="Filter categories:">
+            <b-form-select label="Street:" class="w-25" v-model="selectedCuisine" :options="optionsCuisine"></b-form-select>
+            <!-- <br /> -->
             <b-form-select class="w-25" v-model="selectedDiet" :options="optionsDiet"></b-form-select>
-            <br />
+            <!-- <br /> -->
             <b-form-select class="w-25" v-model="selectedIntolerance" :options="optionsIntolerance"></b-form-select>
         </b-form-group>
 
         <button @click="sortByMakingTime">Sort by making time</button>
         <button @click="sortByPopularity">Sort by popularity</button>
-
-        <b-alert class="w-25" v-model="showDismissibleAlert" variant="danger" dismissible>
+        <br>
+        <br>
+        <b-alert  v-model="showDismissibleAlert" variant="warning" dismissible style="text-align:center">
             No recipes found for the inserted query
         </b-alert>
 
-        <RecipePreview
+        <RecipePreview style="float:left"
                 v-for="r in recipes"
                 :id="r.id"
                 :title="r.title"
