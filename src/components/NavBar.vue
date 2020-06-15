@@ -5,11 +5,16 @@
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
+
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item href="#">Main Page</b-nav-item>
-          <b-nav-item href="#">Search</b-nav-item>
+          <b-nav-item  to="/" >MainPage</b-nav-item>
+          <b-nav-item to="/search" tag="a">Search</b-nav-item>
           <b-nav-item href="#">About</b-nav-item>
+          <b-navbar-brand  v-if="!this.cookiebla">Hello Guest</b-navbar-brand>
+          <b-nav-item  to="/" v-if="!this.cookiebla">Login</b-nav-item>
+          <b-nav-item  to="/register" v-if="!this.cookiebla">Register</b-nav-item>
+          <b-nav-item   v-if="this.cookiebla">Yossi</b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
@@ -23,13 +28,14 @@
 
           </b-nav-item-dropdown>
 
-          <b-nav-item-dropdown right>
+          <b-nav-item-dropdown  v-if="this.cookiebla" right>
             <!-- Using 'button-content' slot -->
             <template v-slot:button-content>
-              <em>User</em>
+              <em>Personal</em>
             </template>
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
-            <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+            <b-dropdown-item to="/favorites">My Favorites</b-dropdown-item>
+            <b-dropdown-item to="/personal">My Recipes</b-dropdown-item>
+            <b-dropdown-item to="/family">My Family Recipes</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -38,7 +44,25 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data(){
+
+  },
+  mounted() {
+    this.updateCookie();
+  },
+  props:{
+    cookiebla: {
+      type: Boolean,
+      required: true
+    },
+  },
+  methods:{
+    updateCookie(){
+      // Add the component back in
+    }
+  },
+};
 </script>
 
 <style></style>

@@ -1,24 +1,31 @@
 <template>
   <div >
-    <div class="recipe-preview">
-      <div id="footer" class="recipe-footer">
-        <div :title="title" class="recipe-title">{{ title }}</div>
-        <ul class="recipe-overview">
-          <img src="../assets/clock_icon.png" width="25" height="25" />
-          <li>{{ readyInMinutes }} minutes</li>
-          <li><img src="../assets/like_icon.png" width="25" height="25" />{{ aggregateLikes }}</li>
-        </ul>
-      </div>
+    <router-link  :to="{ name: 'recipe', params: { recipeId: this.id} }">
+      <div class="recipe-preview">
+        <div id="footer" class="recipe-footer">
+          <div :title="title" class="recipe-title">{{ title }}</div>
+          <ul class="recipe-overview">
+            <img src="../assets/clock_icon.png" width="25" height="25"/>
+            <li>{{ readyInMinutes }} minutes</li>
+            <li><img src="../assets/like_icon.png" width="25" height="25"/>{{ aggregateLikes }}</li>
+          </ul>
+        </div>
 
-      <img style="position: absolute; bottom: 8px; left: -45px;" id="if" v-if="vegetarian" src="../assets/vegetarian_icon.png" width="45" height="45">
-      <img style="position: absolute; bottom: 8px; left: -45px;" id="else" v-else src="../assets/notVegetarian_icon.png" width="45" height="45">
-      <img style="position: absolute; bottom: 53px; left: -45px;" id="if" v-if="vegan" src="../assets/vegan_icon.png" width="45" height="45">
-      <img style="position: absolute; bottom: 53px; left: -45px;" id="else" v-else src="../assets/notVegan_icon.png" width="45" height="45">
-      <img style="position: absolute; bottom: 98px; left: -45px;" id="if" v-if="glutenFree" src="../assets/glutenFree_icon.png" width="45" height="45">
-      <img style="position: absolute; bottom: 98px; left: -45px;" id="else" v-else src="../assets/gluten_icon.png" width="45" height="45">
-      
-      <img class="image" :src="image" width="500" height="250">
-    </div>
+        <img style="position: absolute; bottom: 8px; left: -45px;" id="if" v-if="vegetarian"
+             src="../assets/vegetarian_icon.png" width="45" height="45">
+        <img style="position: absolute; bottom: 8px; left: -45px;" id="else" v-else
+             src="../assets/notVegetarian_icon.png" width="45" height="45">
+        <img style="position: absolute; bottom: 53px; left: -45px;" id="if" v-if="vegan" src="../assets/vegan_icon.png"
+             width="45" height="45">
+        <img style="position: absolute; bottom: 53px; left: -45px;" id="else" v-else src="../assets/notVegan_icon.png"
+             width="45" height="45">
+        <img style="position: absolute; bottom: 98px; left: -45px;" id="if" v-if="glutenFree"
+             src="../assets/glutenFree_icon.png" width="45" height="45">
+        <img style="position: absolute; bottom: 98px; left: -45px;" id="else" v-else src="../assets/gluten_icon.png"
+             width="45" height="45">
+        <img class="image" :src="image" width="500" height="250">
+      </div>
+    </router-link>
      
 
   </div>

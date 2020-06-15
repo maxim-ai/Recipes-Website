@@ -1,7 +1,6 @@
 
 <template>
     <div style="text-align:center" >
-        <NavBar/>
         <h1 >Search recipes</h1>
         <input
                 v-model="searchQuery"

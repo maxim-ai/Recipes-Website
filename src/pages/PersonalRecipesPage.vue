@@ -1,6 +1,5 @@
 <template>
     <div>
-        <NavBar></NavBar>
         <h1>Personal Recipes</h1>
         <RecipePreview
                 v-for="r in recipes"

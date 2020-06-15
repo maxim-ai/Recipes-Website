@@ -1,6 +1,5 @@
 <template>
   <div >
-    <NavBar></NavBar>
     <div class="column">
       <RecipePreview
         v-for="r in recipes"
@@ -19,21 +18,19 @@
       <button @click="updateRecipes">Refresh</button>
     </div>
     <div class="column">
-      <Login style="position: absolute; top: 30%;" />
-      <!-- <RecipeFull
-        :id="recipeChosen.previewItems.id"
-        :title="recipeChosen.previewItems.title"
-        :ready-in-minutes="recipeChosen.previewItems.readyInMinutes"
-        :image="recipeChosen.previewItems.image"
-        :aggregate-likes="recipeChosen.previewItems.aggregateLikes"
-        :vegetarian="recipeChosen.previewItems.vegetarian"
-        :vegan="recipeChosen.previewItems.vegan"
-        :gluten-free="recipeChosen.previewItems.glutenFree"
-        :ingredients="recipeChosen.ingredients"
-        :instructions="recipeChosen.instructions"
-        :num-of-diners="recipeChosen.numOfDiners"
-        :key="recipeChosen.id"
-      /> -->
+      <Login @clicked="getLastWatched" v-if="!hasCookie" style="position: absolute; top: 30%;" />
+      <RecipePreview v-else v-for="r in watchedRecipes"
+        :id="r.id"
+        :title="r.title"
+        :ready-in-minutes="r.readyInMinutes"
+        :image="r.image"
+        :aggregate-likes="r.aggregateLikes"
+        :vegetarian="r.vegetarian"
+        :vegan="r.vegan"
+        :gluten-free="r.glutenFree"
+        :in-favorites="r.inFavorites"
+        :watched="r.watched"
+        :key="r.id" />
     </div>
   </div>
 </template>
@@ -43,12 +40,6 @@ import RecipePreview from "../components/RecipePreview";
 import Login from "../components/Login";
 import RecipeFull from "../components/RecipeFull";
 import VueCookies from 'vue-cookies';
-// import Vue from 'vue';
-
-// var Vue = require('vue');
-// Vue.use(require('vue-cookies'));
-// Vue.use(VueCookies);
-// Vue.$cookies.config('7d')
 
 export default {
   components: {
@@ -59,12 +50,15 @@ export default {
   data() {
     return {
       recipes: [],
-      recipeChosen: {}
+      recipeChosen: {},
+      hasCookie:false,
+      watchedRecipes: []
     };
   },
   mounted() {
     this.updateRecipes();
-    // this.getFullRecipe(492560);
+    this.checkCookieAfterRefresh();
+    this.getLastWatched(true);
   },
   methods: {
     async updateRecipes() {
@@ -82,14 +76,6 @@ export default {
           ids = ids + recipe.id + ",";
         });
         ids = ids.substring(0, ids.length - 1) + "]";
-        let d=window.$cookies.isKey('session');
-        await this.axios.post("http://localhost:3000/auth/login", {
-          username: "seanav",
-          password: "s1234!"
-        });
-        // window.$cookies.set('blabla');
-        // let b=window.$cookies.isKey('blabla');
-        let c=window.$cookies.isKey('session');
         const infos = await this.axios.get(
           "http://localhost:3000/users/userRecipeInfo/" + ids
         );
@@ -107,12 +93,18 @@ export default {
         this.recipes.push(...response.data);
       }
     },
-    async getFullRecipe(recipe_id) {
+    async getLastWatched(value){
+      this.axios.defaults.withCredentials = true;
+
       let response = await this.axios.get(
-        "http://localhost:3000/recipes/recipePage/recipeID/" + recipe_id
+              "http://localhost:3000/users/lastWatchedRecipes"
       );
-      this.recipeChosen = response.data;
+      this.watchedRecipes.push(...response.data);
+    },
+    checkCookieAfterRefresh(){
+      this.hasCookie=window.$cookies.isKey('session');
     }
+
   }
 };
 </script>

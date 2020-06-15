@@ -95,9 +95,11 @@ export default {
       try {
         // this.axios.defaults.withCredentials = true;
         await this.axios.post("http://localhost:3000/auth/login", {
-          username: this.username,
-          password: this.password
+          username: this.form.username,
+          password: this.form.password
         });
+        this.$store.login();
+        this.updateParent();
       } catch (err) {
         console.log(err.response);
         this.form.submitError = err.response.data.message;
@@ -113,6 +115,11 @@ export default {
       // console.log("login method go");
 
       this.Login();
+    },
+    updateParent(){
+      this.$parent.$parent.$data.hasCookie=window.$cookies.isKey('session');
+      this.$parent.$data.hasCookie=window.$cookies.isKey('session');
+      this.$emit('clicked',true);
     }
   }
 };

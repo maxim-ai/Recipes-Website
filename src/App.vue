@@ -1,18 +1,37 @@
 <template>
   <div id="app">
-    <NavBar />
-    <MainPage />
+
+
+    <NavBar :cookiebla=hasCookie />
+<!--    <MainPage />-->
+    <router-view />
+
   </div>
 </template>
 
 <script>
-import MainPage from "./pages/MainPage";
+// import MainPage from "./pages/MainPage";
 import NavBar from "./components/NavBar";
 export default {
   name: "App",
   components: {
-    MainPage,
     NavBar
+  },
+  data(){
+    return{
+      hasCookie: false
+    }
+  },
+  mounted(){
+    this.checkCookieAfterRefresh();
+  },
+  methods:{
+    onChildClick(value){
+      this.hasCookie=value;
+    },
+    checkCookieAfterRefresh(){
+      this.hasCookie=window.$cookies.isKey('session');
+    }
   }
 };
 </script>

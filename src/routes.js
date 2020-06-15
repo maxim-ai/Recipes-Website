@@ -22,16 +22,32 @@ const routes = [
     name: "search",
     component: () => import("./pages/SearchPage")
   },
-//   {
-//     path: "/recipe/:recipeId",
-//     name: "recipe",
-//     component: () => import("./componenets/RecipeFull")
-//   },
+  {
+    path: "/favorites",
+    name: "favorites",
+    component: () => import("./pages/FavoritesPage")
+  },
+  {
+    path: "/personal",
+    name: "personal",
+    component: () => import("./pages/PersonalRecipesPage")
+  },
+  {
+    path: "/family",
+    name: "family",
+    component: () => import("./pages/FamilyRecipesPage")
+  },
+  {
+    path: "/recipe/:recipeId",
+    name: "recipe",
+    component: () => import("./components/RecipeFull")
+  },
   {
     path: "*",
     name: "notFound",
     component: NotFound
   }
+
 ];
 
 export default routes;
