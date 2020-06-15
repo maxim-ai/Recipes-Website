@@ -1,7 +1,6 @@
 <template>
 
     <div>
-        <NavBar></NavBar>
         <RecipeFamily
                 v-for="r in recipes"
                 :id="r.id"
@@ -20,12 +19,10 @@
 
 <script>
     import RecipeFamily from "../components/RecipeFamily";
-    import NavBar from "../components/NavBar";
     export default {
         name: "FamilyRecipesPage",
         components: {
-            RecipeFamily,
-            NavBar
+            RecipeFamily
         },
         data() {
             return {

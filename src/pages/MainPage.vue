@@ -19,8 +19,8 @@
       <button @click="updateRecipes">Refresh</button>
     </div>
     <div class="column">
-      <Login />
-      <RecipeFull
+      <Login style="position: absolute; top: 30%;" />
+      <!-- <RecipeFull
         :id="recipeChosen.previewItems.id"
         :title="recipeChosen.previewItems.title"
         :ready-in-minutes="recipeChosen.previewItems.readyInMinutes"
@@ -33,7 +33,7 @@
         :instructions="recipeChosen.instructions"
         :num-of-diners="recipeChosen.numOfDiners"
         :key="recipeChosen.id"
-      />
+      /> -->
     </div>
   </div>
 </template>
@@ -42,13 +42,19 @@
 import RecipePreview from "../components/RecipePreview";
 import Login from "../components/Login";
 import RecipeFull from "../components/RecipeFull";
-import NavBar from "../components/NavBar";
+import VueCookies from 'vue-cookies';
+// import Vue from 'vue';
+
+// var Vue = require('vue');
+// Vue.use(require('vue-cookies'));
+// Vue.use(VueCookies);
+// Vue.$cookies.config('7d')
+
 export default {
   components: {
     RecipePreview,
     Login,
-    RecipeFull,
-    NavBar
+    // RecipeFull,
   },
   data() {
     return {
@@ -58,7 +64,7 @@ export default {
   },
   mounted() {
     this.updateRecipes();
-    this.getFullRecipe(492560);
+    // this.getFullRecipe(492560);
   },
   methods: {
     async updateRecipes() {
@@ -76,10 +82,14 @@ export default {
           ids = ids + recipe.id + ",";
         });
         ids = ids.substring(0, ids.length - 1) + "]";
+        let d=window.$cookies.isKey('session');
         await this.axios.post("http://localhost:3000/auth/login", {
           username: "seanav",
           password: "s1234!"
         });
+        // window.$cookies.set('blabla');
+        // let b=window.$cookies.isKey('blabla');
+        let c=window.$cookies.isKey('session');
         const infos = await this.axios.get(
           "http://localhost:3000/users/userRecipeInfo/" + ids
         );

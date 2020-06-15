@@ -1,315 +1,189 @@
 <template>
   <div class="container">
-    <NavBar/>
-    <form @submit.prevent="handleRegister" id="contact">
-      <h1>Register</h1>
-      <fieldset>
-        <h4>Username:</h4>
-        <input
-          type="text"
-          name="username"
-          id="username"
-          v-model="username"
-          placeholder="Enter your username"
-          required
-        />
-      </fieldset>
-      <fieldset>
-        <h4>Password:</h4>
-        <input
-          type="text"
-          name="password"
-          id="password"
-          v-model="password"
-          placeholder="Enter your password"
-          required
-        />
-      </fieldset>
-      <fieldset>
-        <h4>countries:</h4>
-        <select name="countries" id="countries" v-model="country" required>
-          <option disabled selected value="">please choose country</option>
-          <option v-for="c in countries" :value="c" :key="c">
-            {{ c }}
-          </option>
-        </select>
-      </fieldset>
-      <fieldset>
-        <input type="submit" value="Register" />
-      </fieldset>
-      <div>
-        <div v-if="validated">
-          your last registeration input is validated
-        </div>
-        <div v-else-if="errors.length">
-          your last registeration input is not validated because: {{ errors }}
-        </div>
-        <div v-else-if="errors.length">
-          your last registeration input is not validated because:
-          <ul>
-            <li v-for="err in errors" :key="err">
-              {{ err }}
-            </li>
-          </ul>
-        </div>
+    <h1 class="title">Register</h1>
+    <b-form @submit.prevent="onRegister" @reset.prevent="onReset">
+
+      <b-form-group id="input-group-firstname" label-cols-sm="3" label="First name:" label-for="firstname">
+        <b-form-input id="firstname" v-model="$v.form.firstname.$model" type="text" :state="validateState('firstname')"></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.username.required"> FirstName is required </b-form-invalid-feedback>
+      </b-form-group>
+
+      <b-form-group id="input-group-lastname" label-cols-sm="3" label="Last name:" label-for="lastname">
+        <b-form-input id="lastname" v-model="$v.form.lastname.$model" type="text" :state="validateState('lastname')"></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.username.required"> LastName is required </b-form-invalid-feedback>
+      </b-form-group>
+
+      <b-form-group id="input-group-country" label-cols-sm="3" label="Country:" label-for="country">
+        <b-form-select id="country" v-model="$v.form.country.$model" :options="countries" :state="validateState('country')" ></b-form-select>
+        <b-form-invalid-feedback> Country is required </b-form-invalid-feedback>
+      </b-form-group>
+
+      <b-form-group id="input-group-email" label-cols-sm="3" label="Email:" label-for="email">
+        <b-form-input id="email" v-model="$v.form.email.$model" type="text" :state="validateState('email')"></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.email.required"> Email is required </b-form-invalid-feedback>
+        <b-form-invalid-feedback v-else-if="!$v.form.username.email">Email must be valid</b-form-invalid-feedback>
+      </b-form-group>
+
+      <b-form-group id="input-group-username" label-cols-sm="3" label="Username:" label-for="username">
+        <b-form-input id="username" v-model="$v.form.username.$model" type="text" :state="validateState('username')"></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.username.required"> Username is required </b-form-invalid-feedback>
+        <b-form-invalid-feedback v-else-if="!$v.form.username.length">Username length should be between 3-8 characters long</b-form-invalid-feedback>
+        <b-form-invalid-feedback v-if="!$v.form.username.alpha">Username alpha</b-form-invalid-feedback>
+      </b-form-group>
+
+
+      <b-form-group id="input-group-Password" label-cols-sm="3" label="Password:" label-for="password" >
+        <b-form-input id="password" type="password" v-model="$v.form.password.$model" :state="validateState('password')" ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.password.required"> Password is required </b-form-invalid-feedback>
+        <b-form-text v-else-if="$v.form.password.$error" text-variant="info"> Your password should be <strong>strong</strong>. <br /> For that, your password should be also: </b-form-text>
+        <b-form-invalid-feedback v-if="$v.form.password.required && !$v.form.password.length" > Have length between 5-10 characters long </b-form-invalid-feedback>
+      </b-form-group>
+
+      <b-form-group id="input-group-confirmedPassword" label-cols-sm="3" label="Confirm Password:" label-for="confirmedPassword" >
+        <b-form-input id="confirmedPassword" type="password" v-model="$v.form.confirmedPassword.$model" :state="validateState('confirmedPassword')" ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.confirmedPassword.required"> Password confirmation is required </b-form-invalid-feedback>
+        <b-form-invalid-feedback v-else-if="!$v.form.confirmedPassword.sameAsPassword" > The confirmed password is not equal to the original password </b-form-invalid-feedback>
+      </b-form-group>
+
+      <b-form-group id="input-group-image" label-cols-sm="3" label="Image:" label-for="image">
+        <b-form-input id="image" v-model="$v.form.image.$model" type="text" :state="validateState('image')"></b-form-input>
+      </b-form-group>
+
+      <b-button type="reset" variant="danger">Reset</b-button>
+      <b-button type="submit" variant="primary" style="width:250px;" class="ml-5 w-75" >Register</b-button >
+      <div class="mt-2">
+        You have an account already?
+        <router-link to="login"> Log in here</router-link>
       </div>
-    </form>
-    <!-- <div class="container">
-      <form id="contact" action="" method="post">
-        <h3>Colorlib Contact Form</h3>
-        <h4>Contact us for custom quote</h4>
-        <fieldset>
-          <input placeholder="Your name" type="text" required autofocus />
-        </fieldset>
-        <fieldset>
-          <input placeholder="Your Email Address" type="email" required />
-        </fieldset>
-        <fieldset>
-          <input
-            placeholder="Your Phone Number (optional)"
-            type="tel"
-            required
-          />
-        </fieldset>
-        <fieldset>
-          <input placeholder="Your Web Site (optional)" type="url" required />
-        </fieldset>
-        <fieldset>
-          <textarea
-            placeholder="Type your message here...."
-            required
-          ></textarea>
-        </fieldset>
-        <fieldset>
-          <button
-            name="submit"
-            type="submit"
-            id="contact-submit"
-            data-submit="...Sending"
-          >
-            Submit
-          </button>
-        </fieldset>
-      </form>
-    </div> -->
+
+    </b-form>
+    <b-alert class="mt-2" v-if="form.submitError" variant="warning" dismissible show >
+      Register failed: {{ form.submitError }}
+    </b-alert>
+    <!-- <b-card class="mt-3 md-3" header="Form Data Result">
+      <pre class="m-0"><strong>form:</strong> {{ form }}</pre>
+      <pre class="m-0"><strong>$v.form:</strong> {{ $v.form }}</pre>
+    </b-card> -->
   </div>
 </template>
 
 <script>
 import countries from "../assets/countries";
-import NavBar from "../components/NavBar";
-console.log(countries);
+import {
+  required,
+  minLength,
+  maxLength,
+  alpha,
+  sameAs,
+  email
+} from "vuelidate/lib/validators";
 
 export default {
   name: "Register",
-  components:{
-    NavBar
-  },
   data() {
     return {
-      username: "",
-      password: "",
-      country: "",
-      countries: [],
+      form: {
+        username: "",
+        firstName: "",
+        lastName: "",
+        country: null,
+        password: "",
+        confirmedPassword: "",
+        email: "",
+        submitError: undefined
+      },
+      countries: [{ value: null, text: "", disabled: true }],
       errors: [],
       validated: false
     };
   },
+  validations: {
+    form: {
+      username: {
+        required,
+        length: (u) => minLength(3)(u) && maxLength(8)(u),
+        alpha
+      },
+      firstname:{
+        required
+      },
+      lastname:{
+        required
+      },
+      country: {
+        required
+      },
+      email:{
+        required,
+        email
+      },
+      password: {
+        required,
+        length: (p) => minLength(5)(p) && maxLength(10)(p)
+      },
+      confirmedPassword: {
+        required,
+        sameAsPassword: sameAs("password")
+      },
+      image:{
+        
+      }
+    }
+  },
   mounted() {
-    console.log("mounted");
+    // console.log("mounted");
     this.countries.push(...countries);
+    // console.log($v);
   },
   methods: {
-    handleRegister() {
-      console.log("register method called");
-      // event.preventDefault();
-
-      this.errors = [];
-      if (this.username.toLowerCase() !== this.username)
-        this.errors.push("error: username should be in lower case");
-
-      const password_len = this.password.length;
-      if (password_len < 3 || password_len > 6)
-        this.errors.push("error: password length should be between 3-6");
-
-      // console.log(
-      //   this.errors,
-      //   this.errors.length,
-      //   this.errors.length == 0,
-      //   this.errors.length === 0
-      // );
-
-      this.validated = this.errors.length === 0;
-
-      if (this.validated) {
-        console.log("validated");
-
-        // axios
-        //   .post("http://localhost:3000/user/Register", {
-        //     username: this.username,
-        //     password: this.password
-        //   })
-        //   .then((res) => {
-        //     console.log("ok");
-        //     event.preventDefault();
-        //     // console.log(res);
-        //   })
-        //   .catch((e) => {
-        //     this.errors.push(e);
-        //     event.preventDefault();
-        //   });
+    validateState(param) {
+      const { $dirty, $error } = this.$v.form[param];
+      return $dirty ? !$error : null;
+    },
+    async Register() {
+      try {
+        const response = await this.axios.post(
+          "https://test-for-3-2.herokuapp.com/user/Register",
+          {
+            username: this.form.username,
+            password: this.form.password
+          }
+        );
+        this.$router.push("/login");
+        // console.log(response);
+      } catch (err) {
+        console.log(err.response);
+        this.form.submitError = err.response.data.message;
       }
+    },
+    onRegister() {
+      // console.log("register method called");
+      this.$v.form.$touch();
+      if (this.$v.form.$anyError) {
+        return;
+      }
+      // console.log("register method go");
+      this.Register();
+    },
+    onReset() {
+      this.form = {
+        username: "",
+        firstName: "",
+        lastName: "",
+        country: null,
+        password: "",
+        confirmedPassword: "",
+        email: ""
+      };
+      this.$nextTick(() => {
+        this.$v.$reset();
+      });
     }
   }
 };
 </script>
-
-<style scoped>
-/* @import url(
-  https://fonts.googleapis.com/css?family=Roboto:400,
-  300,
-  600,
-  400italic
-); */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-font-smoothing: antialiased;
-  -moz-font-smoothing: antialiased;
-  -o-font-smoothing: antialiased;
-  /* font-smoothing: antialiased; */
-  text-rendering: optimizeLegibility;
-}
-/* 
-body {
-  font-family: "Roboto", Helvetica, Arial, sans-serif;
-  font-weight: 100;
-  font-size: 12px;
-  line-height: 30px;
-  color: #777;
-  background: #4caf50;
-} */
-
+<style lang="scss" scoped>
 .container {
-  max-width: 400px;
-  width: 100%;
-  margin: 0 auto;
-  position: relative;
-}
-
-#contact input[type="text"],
-#contact input[type="email"],
-#contact input[type="tel"],
-#contact input[type="url"],
-#contact textarea,
-#contact button[type="submit"] {
-  font: 400 12px/16px "Roboto", Helvetica, Arial, sans-serif;
-}
-
-#contact {
-  background: #f9f9f9;
-  padding: 25px;
-  /* margin: 150px 0; */
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-}
-
-#contact h1 {
-  display: block;
-  /* font-size: 30px; */
-  /* font-weight: 300; */
-  margin-bottom: 10px;
-}
-
-#contact h4 {
-  margin: 5px 0 15px;
-  display: block;
-  /* font-size: 13px; */
-  font-weight: 400;
-}
-
-fieldset {
-  border: medium none !important;
-  margin: 0 0 10px;
-  min-width: 100%;
-  padding: 0;
-  width: 100%;
-}
-
-#contact input[type="text"],
-#contact input[type="email"],
-#contact input[type="tel"],
-#contact input[type="url"],
-#contact select,
-#contact textarea {
-  width: 100%;
-  border: 1px solid #ccc;
-  background: #fff;
-  margin: 0 0 5px;
-  padding: 10px;
-}
-
-#contact input[type="text"]:hover,
-#contact input[type="email"]:hover,
-#contact input[type="tel"]:hover,
-#contact input[type="url"]:hover,
-#contact select:hover,
-#contact textarea:hover {
-  -webkit-transition: border-color 0.3s ease-in-out;
-  -moz-transition: border-color 0.3s ease-in-out;
-  transition: border-color 0.3s ease-in-out;
-  border: 1px solid #aaa;
-}
-
-#contact textarea {
-  height: 100px;
-  max-width: 100%;
-  resize: none;
-}
-
-#contact button[type="submit"] {
-  cursor: pointer;
-  width: 100%;
-  border: none;
-  background: #4caf50;
-  color: #fff;
-  margin: 0 0 5px;
-  padding: 10px;
-  font-size: 15px;
-}
-
-#contact button[type="submit"]:hover {
-  background: #43a047;
-  -webkit-transition: background 0.3s ease-in-out;
-  -moz-transition: background 0.3s ease-in-out;
-  transition: background-color 0.3s ease-in-out;
-}
-
-#contact button[type="submit"]:active {
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
-}
-
-#contact input:focus,
-#contact textarea:focus {
-  outline: 0;
-  border: 1px solid #aaa;
-}
-
-::-webkit-input-placeholder {
-  color: #888;
-}
-
-:-moz-placeholder {
-  color: #888;
-}
-
-::-moz-placeholder {
-  color: #888;
-}
-
-:-ms-input-placeholder {
-  color: #888;
+  max-width: 500px;
 }
 </style>

@@ -19,11 +19,9 @@
 
 <script>
     import RecipePreview from "../components/RecipePreview";
-    import NavBar from "../components/v";
     export default {
         components: {
-            RecipePreview,
-            NavBar
+            RecipePreview
         },
         data() {
             return {

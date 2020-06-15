@@ -14,13 +14,20 @@
         <li>ingrediants:</li>
         <ul v-for="i in ingredients" :key="i.ingredient_name">
           <li>
+            <ul class="list-group">
+              <li class="list-group-item disabled">{{ i.ingredient_name }}, {{ i.amount }} {{ i.unit }}</li>
+            </ul>
+          </li>
+        </ul>
+        <!-- <ul v-for="i in ingredients" :key="i.ingredient_name">
+          <li>
             <ul>
               <li>name: {{ i.ingredient_name }}</li>
               <li>amount: {{ i.amount }}</li>
               <li>unit: {{ i.unit }}</li>
             </ul>
           </li>
-        </ul>
+        </ul> -->
         <li>instructions:</li>
         <ul v-for="i in instructions" :key="i.instructionNum">
           <li>

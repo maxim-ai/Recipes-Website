@@ -7,9 +7,13 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "bootstrap": "^4.5.0",
     "bootstrap-vue": "^2.15.0",
     "vue": "^2.6.11",
-    "vue-axios": "^2.1.5"
+    "vue-axios": "^2.1.5",
+    "vue-cookies": "^1.7.0",
+    "vue-router": "^3.2.0",
+    "vuelidate": "^0.7.5"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.7.0",
