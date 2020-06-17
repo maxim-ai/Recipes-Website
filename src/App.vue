@@ -1,11 +1,8 @@
 <template>
-  <div id="app">
-
-
+  <div id="app" style="background-size: cover;background-image: url(https://foodservice.potatorolls.com/wp-content/uploads/2017/08/mission-background-image.png)">
+  <!-- <div id="app" style="background-size: cover;background-repeat: no-repeat;background-image: url(https://i.pinimg.com/originals/ec/c7/a4/ecc7a4f021aab13bf5197543d291adf7.jpg)"> -->
     <NavBar :cookiebla=hasCookie />
-<!--    <MainPage />-->
     <router-view />
-
   </div>
 </template>
 

@@ -1,6 +1,10 @@
 <template>
   <div >
     <div class="column">
+      <div >
+        <h2 style="display: inline-block;padding-left:15%;padding-right:5%;"><u>Random recipes</u></h2>
+        <button style="display: inline-block;" @click="updateRecipes">Refresh</button>
+      </div>
       <RecipePreview
         v-for="r in recipes"
         :id="r.id"
@@ -15,22 +19,25 @@
         :watched="r.watched"
         :key="r.id"
       />
-      <button @click="updateRecipes">Refresh</button>
+
     </div>
     <div class="column">
       <Login @clicked="getLastWatched" v-if="!hasCookie" style="position: absolute; top: 30%;" />
-      <RecipePreview v-else v-for="r in watchedRecipes"
-        :id="r.id"
-        :title="r.title"
-        :ready-in-minutes="r.readyInMinutes"
-        :image="r.image"
-        :aggregate-likes="r.aggregateLikes"
-        :vegetarian="r.vegetarian"
-        :vegan="r.vegan"
-        :gluten-free="r.glutenFree"
-        :in-favorites="r.inFavorites"
-        :watched="r.watched"
-        :key="r.id" />
+      <div v-else >
+        <h2 style="padding-left:20%"><u>Last watched recipes</u></h2>
+        <RecipePreview v-for="r in watchedRecipes"
+          :id="r.id"
+          :title="r.title"
+          :ready-in-minutes="r.readyInMinutes"
+          :image="r.image"
+          :aggregate-likes="r.aggregateLikes"
+          :vegetarian="r.vegetarian"
+          :vegan="r.vegan"
+          :gluten-free="r.glutenFree"
+          :inFavorites="r.inFavorites"
+          :watched="r.watched"
+          :key="r.id" />
+      </div>
     </div>
   </div>
 </template>
@@ -66,11 +73,40 @@ export default {
       try {
         this.axios.defaults.withCredentials = true;
 
-        response = await this.axios.get(
-          "http://localhost:3000/recipes/getThreeRandomRecipes"
-        );
+        response = await this.axios.get("http://localhost:3000/recipes/getThreeRandomRecipes");
 
         this.recipes = [];
+        if(window.$cookies.isKey('session'))
+        {
+          let ids = "[";
+          response.data.forEach(recipe => {
+            ids = ids + recipe.id + ",";
+          });
+          ids = ids.substring(0, ids.length - 1) + "]";
+          const infos = await this.axios.get(
+            "http://localhost:3000/users/userRecipeInfo/" + ids
+          );
+          response.data.forEach(recipe => {
+            for (const [key, value] of Object.entries(infos.data)) {
+              if (recipe.id == key) {
+                recipe.watched = value.watched;
+                recipe.inFavorites = value.inFavorites;
+              }
+            }
+          });
+        }
+        this.recipes.push(...response.data);
+      } catch (error) {
+        this.recipes.push(...response.data);
+      }
+    },
+    async getLastWatched(value){
+      this.axios.defaults.withCredentials = true;
+      let response = await this.axios.get("http://localhost:3000/users/lastWatchedRecipes");
+
+      this.watchedRecipes = [];
+      if(window.$cookies.isKey('session'))
+      {
         let ids = "[";
         response.data.forEach(recipe => {
           ids = ids + recipe.id + ",";
@@ -79,7 +115,6 @@ export default {
         const infos = await this.axios.get(
           "http://localhost:3000/users/userRecipeInfo/" + ids
         );
-        console.log(infos);
         response.data.forEach(recipe => {
           for (const [key, value] of Object.entries(infos.data)) {
             if (recipe.id == key) {
@@ -88,21 +123,13 @@ export default {
             }
           }
         });
-        this.recipes.push(...response.data);
-      } catch (error) {
-        this.recipes.push(...response.data);
       }
-    },
-    async getLastWatched(value){
-      this.axios.defaults.withCredentials = true;
 
-      let response = await this.axios.get(
-              "http://localhost:3000/users/lastWatchedRecipes"
-      );
       this.watchedRecipes.push(...response.data);
     },
     checkCookieAfterRefresh(){
       this.hasCookie=window.$cookies.isKey('session');
+
     }
 
   }
@@ -114,6 +141,7 @@ export default {
   float: left;
   width: 50%;
   padding: 10px;
+  padding-left: 5%;
 }
 
 * {

@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div class="main">
     <router-link  :to="{ name: 'recipe', params: { recipeId: this.id} }">
       <div class="recipe-preview">
         <div id="footer" class="recipe-footer">
@@ -10,6 +10,12 @@
             <li><img src="../assets/like_icon.png" width="25" height="25"/>{{ aggregateLikes }}</li>
           </ul>
         </div>
+        <img style="position: absolute; top: 0px; right: 0px;" id="if" v-if="inFavorites&&checkIfCookie()"
+             src="../assets/full_star_icon.png" width="45" height="45">
+        <img style="position: absolute; top: 0px; right: 0px;" id="else-if" v-else-if="checkIfCookie()"
+             src="../assets/empty_star_icon.png" width="45" height="45">
+        <!-- <img style="position: absolute; top: 0px; right: 0px;" id="else" v-else
+             src="../assets/empty_star_icon.png" width="45" height="45"> -->
 
         <img style="position: absolute; bottom: 8px; left: -45px;" id="if" v-if="vegetarian"
              src="../assets/vegetarian_icon.png" width="45" height="45">
@@ -73,14 +79,14 @@ export default {
       type: Boolean,
       required: false,
       default() {
-        return undefined;
+        return false;
       }
     },
     inFavorites: {
       type: Boolean,
       required: false,
       default() {
-        return undefined;
+        return false;
       }
     },
     width:{
@@ -97,16 +103,25 @@ export default {
         return 250;
       } 
     }
+  },
+  methods:{
+    checkIfCookie(){
+      return window.$cookies.isKey('session');
+    }
   }
 };
 </script>
 
 <style scoped>
+.main{
+  padding-left: 6%;
+}
+
 .recipe-preview {
   width: 500px;
   border: 1px solid #ccbba5;
   position: relative;
-  margin: 3px 3px 10px 150px;
+  margin: 3px 3px 10px 10px;
   transition: transform 0.2s;
 }
 
@@ -145,12 +160,7 @@ export default {
   position: absolute; top: 8px; right: 16px;
 }
 .image {
-
   transition: transform 0.2s;
 }
 
-.image:hover {
-  /* transform: scale(1.2);
-  z-index: 10000000000; */
-}
 </style>

@@ -35,7 +35,7 @@
             No recipes found for the inserted query
         </b-alert>
 
-        <RecipePreview style="float:left"
+        <RecipePreview style="float:left;"
                 v-for="r in recipes"
                 :id="r.id"
                 :title="r.title"
@@ -45,7 +45,7 @@
                 :vegetarian="r.vegetarian"
                 :vegan="r.vegan"
                 :gluten-free="r.glutenFree"
-                :in-favorites="r.inFavorites"
+                :inFavorites="r.inFavorites"
                 :watched="r.watched"
                 :key="r.id"
         />
@@ -92,6 +92,9 @@
                 searchQuery:""
             };
         },
+        mounted(){
+            this.updateLastSearch();
+        },
         methods:{
             async search(){
                 let queryParams={};
@@ -111,8 +114,29 @@
                 else{
                     this.showDismissibleAlert=false;
                     this.recipes = [];
+                    if(window.$cookies.isKey('session'))
+                    {
+                        let ids = "[";
+                        response.data.forEach(recipe => {
+                        ids = ids + recipe.id + ",";
+                        });
+                        ids = ids.substring(0, ids.length - 1) + "]";
+                        const infos = await this.axios.get(
+                        "http://localhost:3000/users/userRecipeInfo/" + ids
+                        );
+                        response.data.forEach(recipe => {
+                        for (const [key, value] of Object.entries(infos.data)) {
+                            if (recipe.id == key) {
+                            recipe.watched = value.watched;
+                            recipe.inFavorites = value.inFavorites;
+                            }
+                        }
+                        });
+                    }
                     this.recipes.push(...response.data);
                 }
+                if(this.$store.username!="")
+                    this.$store.lastSearch=this.recipes;
             },
             sortByMakingTime(){
                 this.recipes.sort((a,b)=>{
@@ -123,6 +147,10 @@
                 this.recipes.sort((a,b)=>{
                     return b.aggregateLikes-a.aggregateLikes;
                 })
+            },
+            updateLastSearch(){
+                if(this.$store.username!="")
+                    this.recipes=this.$store.lastSearch;
             }
         }
     };

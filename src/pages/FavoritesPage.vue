@@ -1,7 +1,9 @@
 <template>
     <div>
-        <h1>Favorite Recipes</h1>
-        <RecipePreview
+        <h1 style="text-align:center">Favorite Recipes</h1>
+        <br>
+        <br>
+        <RecipePreview style="float:left;"
                 v-for="r in recipes"
                 :id="r.id"
                 :title="r.title"
@@ -38,12 +40,6 @@
                 let response;
                 try {
                     this.axios.defaults.withCredentials = true;
-
-                    await this.axios.post("http://localhost:3000/auth/login", {
-                        username: "seanav",
-                        password: "s1234!"
-                    });
-
                     response = await this.axios.get(
                         "http://localhost:3000/users/favorites"
                     );
