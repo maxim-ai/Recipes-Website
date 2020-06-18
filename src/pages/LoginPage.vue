@@ -9,6 +9,11 @@ import Login from "../components/Login";
 export default {
   components: {
     Login
+  },
+  data(){
+    return{
+      name:"LoginPage"
+    }
   }
 }
 </script>

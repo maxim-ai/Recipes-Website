@@ -56,6 +56,7 @@ export default {
   },
   data() {
     return {
+      name:"MainPage",
       recipes: [],
       recipeChosen: {},
       hasCookie:false,
@@ -101,6 +102,7 @@ export default {
       }
     },
     async getLastWatched(value){
+      this.updateCurrentRandoms();
       this.axios.defaults.withCredentials = true;
       let response = await this.axios.get("http://localhost:3000/users/lastWatchedRecipes");
 
@@ -130,7 +132,33 @@ export default {
     checkCookieAfterRefresh(){
       this.hasCookie=window.$cookies.isKey('session');
 
-    }
+    },
+    async updateCurrentRandoms(){
+      let response;
+      try {
+        this.axios.defaults.withCredentials = true;
+        if(window.$cookies.isKey('session'))
+        {
+          let ids = "[";
+          this.recipes.forEach(recipe => {
+            ids = ids + recipe.id + ",";
+          });
+          ids = ids.substring(0, ids.length - 1) + "]";
+          const infos = await this.axios.get(
+                  "http://localhost:3000/users/userRecipeInfo/" + ids
+          );
+          this.recipes.forEach(recipe => {
+            for (const [key, value] of Object.entries(infos.data)) {
+              if (recipe.id == key) {
+                recipe.watched = value.watched;
+                recipe.inFavorites = value.inFavorites;
+              }
+            }
+          });
+        }
+      }
+      catch (error) { let n=0;}
+    },
 
   }
 };

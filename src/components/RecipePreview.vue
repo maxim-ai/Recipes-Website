@@ -12,7 +12,7 @@
         </div>
         <img style="position: absolute; top: 0px; right: 0px;" id="if" v-if="inFavorites&&checkIfCookie()"
              src="../assets/full_star_icon.png" width="45" height="45">
-        <img style="position: absolute; top: 0px; right: 0px;" id="else-if" v-else-if="checkIfCookie()"
+        <img style="position: absolute; top: 0px; right: 0px;" id="else-if" v-else-if="!inFavorites&&checkIfCookie()"
              src="../assets/empty_star_icon.png" width="45" height="45">
         <!-- <img style="position: absolute; top: 0px; right: 0px;" id="else" v-else
              src="../assets/empty_star_icon.png" width="45" height="45"> -->
@@ -79,14 +79,14 @@ export default {
       type: Boolean,
       required: false,
       default() {
-        return false;
+        return undefined;
       }
     },
     inFavorites: {
       type: Boolean,
       required: false,
       default() {
-        return false;
+        return undefined;
       }
     },
     width:{

@@ -93,12 +93,11 @@ export default {
     },
     async Login() {
       try {
-        // this.axios.defaults.withCredentials = true;
         await this.axios.post("http://localhost:3000/auth/login", {
           username: this.form.username,
           password: this.form.password
         });
-        this.$store.login();
+        //this.$store.login();
         this.updateParent();
       } catch (err) {
         console.log(err.response);
@@ -118,9 +117,16 @@ export default {
       this.Login();
     },
     updateParent(){
-      this.$parent.$parent.$data.hasCookie=window.$cookies.isKey('session');
-      this.$parent.$data.hasCookie=window.$cookies.isKey('session');
-      this.$emit('clicked',true);
+      let parentName=this.$parent.$data.name;
+      if(parentName=="LoginPage"){
+        this.$parent.$parent.$data.hasCookie=window.$cookies.isKey('session');
+        this.$router.push("/");
+      }
+      else{
+        this.$parent.$parent.$data.hasCookie=window.$cookies.isKey('session');
+        this.$parent.$data.hasCookie=window.$cookies.isKey('session');
+        this.$emit('clicked',true);
+      }
     }
   }
 };

@@ -7,7 +7,6 @@
 </template>
 
 <script>
-// import MainPage from "./pages/MainPage";
 import NavBar from "./components/NavBar";
 export default {
   name: "App",

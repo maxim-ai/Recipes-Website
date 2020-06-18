@@ -17,7 +17,7 @@
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
           <b-navbar-brand  v-if="!this.cookiebla">Hello Guest</b-navbar-brand>
-          <b-navbar-brand v-else>{{username}}</b-navbar-brand>
+          <b-navbar-brand v-else>{{this.$store.username}}</b-navbar-brand>
           <b-nav-item  to="/Login" v-if="!this.cookiebla">Login</b-nav-item>
           <b-nav-item  to="/register" v-if="!this.cookiebla">Register</b-nav-item>
 
@@ -29,9 +29,8 @@
             <b-dropdown-item to="/favorites">My Favorites</b-dropdown-item>
             <b-dropdown-item to="/personal">My Recipes</b-dropdown-item>
             <b-dropdown-item to="/family">My Family Recipes</b-dropdown-item>
-            <b-dropdown-item @click="logout" to="/">Log out</b-dropdown-item>
           </b-nav-item-dropdown>
-          <b-nav-item v-if="this.cookiebla" @click="logout">Log out</b-nav-item>
+          <b-nav-item v-if="this.cookiebla" @click="logout" to="/">Log out</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -42,6 +41,7 @@
 export default {
   data(){
     return {
+      name:"Navbar",
        username:""
     };
   },
@@ -62,6 +62,10 @@ export default {
       window.$cookies.remove('session');
       this.$store.username="";
       this.$store.lastSearch=[];
+      this.$parent.$data.hasCookie=window.$cookies.isKey('session');
+      this.$parent.$children[1].$data.hasCookie=false;
+      this.$parent.$children[1].$data.recipes.forEach(recipe=>{recipe.inFavorites=!recipe.inFavorites;recipe.watched=!recipe.watched});
+      this.$parent.$children[1].$data.watchedRecipes=[];
     }
   },
 };
