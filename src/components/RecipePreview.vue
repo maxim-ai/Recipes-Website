@@ -17,18 +17,18 @@
         <!-- <img style="position: absolute; top: 0px; right: 0px;" id="else" v-else
              src="../assets/empty_star_icon.png" width="45" height="45"> -->
 
-        <img style="position: absolute; bottom: 8px; left: -45px;" id="if" v-if="vegetarian"
-             src="../assets/vegetarian_icon.png" width="45" height="45">
-        <img style="position: absolute; bottom: 8px; left: -45px;" id="else" v-else
-             src="../assets/notVegetarian_icon.png" width="45" height="45">
-        <img style="position: absolute; bottom: 53px; left: -45px;" id="if" v-if="vegan" src="../assets/vegan_icon.png"
-             width="45" height="45">
-        <img style="position: absolute; bottom: 53px; left: -45px;" id="else" v-else src="../assets/notVegan_icon.png"
-             width="45" height="45">
-        <img style="position: absolute; bottom: 98px; left: -45px;" id="if" v-if="glutenFree"
-             src="../assets/glutenFree_icon.png" width="45" height="45">
-        <img style="position: absolute; bottom: 98px; left: -45px;" id="else" v-else src="../assets/gluten_icon.png"
-             width="45" height="45">
+        <img style="position: absolute; bottom: 8px; left: -85px;" id="if" v-if="vegetarian"
+             src="../assets/vegetarian_icon.png" width="80" height="80">
+        <img style="position: absolute; bottom: 8px; left: -85px;" id="else" v-else
+             src="../assets/notVegetarian_icon.png" width="80" height="80">
+        <img style="position: absolute; bottom: 82px; left: -85px;" id="if" v-if="vegan" src="../assets/vegan_icon.png"
+             width="80" height="80">
+        <img style="position: absolute; bottom: 82px; left: -85px;" id="else" v-else src="../assets/notVegan_icon.png"
+             width="80" height="80">
+        <img style="position: absolute; bottom: 160px; left: -85px;" id="if" v-if="glutenFree"
+             src="../assets/glutenFree_icon.png" width="80" height="80">
+        <img style="position: absolute; bottom: 160px; left: -85px;" id="else" v-else src="../assets/gluten_icon.png"
+             width="80" height="80">
         <img class="image" :src="image" width="500" height="250">
       </div>
     </router-link>
