@@ -1,21 +1,23 @@
 <template>
-
     <div>
-        <RecipeFull
-            :id="recipe.previewItems.id"
-            :title="recipe.previewItems.title"
-            :ready-in-minutes="recipe.previewItems.readyInMinutes"
-            :image="recipe.previewItems.image"
-            :aggregate-likes="recipe.previewItems.aggregateLikes"
-            :vegetarian="recipe.previewItems.vegetarian"
-            :vegan="recipe.previewItems.vegan"
-            :gluten-free="recipe.previewItems.glutenFree"
-            :ingredients="recipe.ingredients"
-            :instructions="recipe.instructions"
-            :numOfDiners="recipe.numOfDiners"
-            :inFavorites="recipe.inFavorites"
-            :watched="recipe.watched"
-        />
+        <div v-if="recipeLoaded">
+            <RecipeFull
+                :id="recipe.previewItems.id"
+                :title="recipe.previewItems.title"
+                :ready-in-minutes="recipe.previewItems.readyInMinutes"
+                :image="recipe.previewItems.image"
+                :aggregate-likes="recipe.previewItems.aggregateLikes"
+                :vegetarian="recipe.previewItems.vegetarian"
+                :vegan="recipe.previewItems.vegan"
+                :gluten-free="recipe.previewItems.glutenFree"
+                :ingredients="recipe.ingredients"
+                :instructions="recipe.instructions"
+                :numOfDiners="recipe.numOfDiners"
+                :inFavorites="recipe.inFavorites"
+                :watched="recipe.watched"
+            />
+        </div>
+        <img v-else src="../assets/35.gif" style="position: absolute; left:45%;top:30%">
     </div>
 
     
@@ -31,6 +33,7 @@
         data() {
             return {
                 recipe: {},
+                recipeLoaded:false
             };
         },
         mounted(){
@@ -64,6 +67,7 @@
                     this.recipe=response.data;
                 }
                 
+                this.recipeLoaded=true;
             },
             async watchRecipe(){
                 if(window.$cookies.isKey('session'))

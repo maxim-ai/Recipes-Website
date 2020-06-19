@@ -14,8 +14,11 @@
              src="../assets/full_star_icon.png" width="45" height="45">
         <img style="position: absolute; top: 0px; right: 0px;" id="else-if" v-else-if="!inFavorites&&checkIfCookie()"
              src="../assets/empty_star_icon.png" width="45" height="45">
-        <!-- <img style="position: absolute; top: 0px; right: 0px;" id="else" v-else
-             src="../assets/empty_star_icon.png" width="45" height="45"> -->
+
+        <img style="position: absolute; top: 50px; right: 0px;" id="if" v-if="watched&&checkIfCookie()"
+             src="../assets/seen_icon.png" width="40" height="30">
+        <img style="position: absolute; top: 50px; right: 0px;" id="else-if" v-else-if="!watched&&checkIfCookie()"
+             src="../assets/not_seen_icon.png" width="40" height="30">
 
         <img style="position: absolute; bottom: 8px; left: -85px;" id="if" v-if="vegetarian"
              src="../assets/vegetarian_icon.png" width="80" height="80">

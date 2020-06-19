@@ -18,6 +18,9 @@
         <li v-if="inFavorites&&checkIfCookie()"><img id="if" src="../assets/full_star_icon.png" width="60" height="60"></li>
         <li @click="addToFav" @mouseover="isHovering = true" @mouseout="isHovering = false" v-else-if="checkIfCookie()&&!isHovering"><img id="else-if" src="../assets/empty_star_icon.png" width="60" height="60"></li>
         <li @click="addToFav" @mouseover="isHovering = true" @mouseout="isHovering = false" v-else-if="checkIfCookie()&&isHovering"><img id="else-if" src="../assets/hover_star_icon.png" width="60" height="60"></li>
+      
+        <li v-if="watched&&checkIfCookie()"><img id="if" src="../assets/seen_icon.png" width="50" height="40"></li>
+        <li v-else-if="checkIfCookie()&&!watched"><img id="else-if" src="../assets/not_seen_icon.png" width="50" height="40"></li>
       </ul>
     </div>
     <h2 style=" text-align: center;"><b>{{ title }}</b></h2>

@@ -5,7 +5,8 @@
         <h2 style="display: inline-block;padding-left:15%;padding-right:5%;"><u>Random recipes</u></h2>
         <button style="display: inline-block;" @click="updateRecipes">Refresh</button>
       </div>
-      <RecipePreview
+      <div v-if="randomLoaded">
+        <RecipePreview 
         v-for="r in recipes"
         :id="r.id"
         :title="r.title"
@@ -18,25 +19,32 @@
         :in-favorites="r.inFavorites"
         :watched="r.watched"
         :key="r.id"
-      />
+        />
+      </div>
+      <img v-else src="../assets/35.gif" style="position: absolute; left:15%;top:30%">
+      
 
     </div>
     <div class="column">
       <Login @clicked="getLastWatched" v-if="!hasCookie" style="position: absolute; top: 30%;" />
       <div v-else >
         <h2 style="padding-left:20%"><u>Last watched recipes</u></h2>
-        <RecipePreview v-for="r in watchedRecipes"
-          :id="r.id"
-          :title="r.title"
-          :ready-in-minutes="r.readyInMinutes"
-          :image="r.image"
-          :aggregate-likes="r.aggregateLikes"
-          :vegetarian="r.vegetarian"
-          :vegan="r.vegan"
-          :gluten-free="r.glutenFree"
-          :inFavorites="r.inFavorites"
-          :watched="r.watched"
-          :key="r.id" />
+        <div v-if="lastWatchedLoaded">
+          <RecipePreview v-for="r in watchedRecipes"
+            :id="r.id"
+            :title="r.title"
+            :ready-in-minutes="r.readyInMinutes"
+            :image="r.image"
+            :aggregate-likes="r.aggregateLikes"
+            :vegetarian="r.vegetarian"
+            :vegan="r.vegan"
+            :gluten-free="r.glutenFree"
+            :inFavorites="r.inFavorites"
+            :watched="r.watched"
+            :key="r.id" />
+        </div>
+        <img v-else src="../assets/35.gif" style="position: relative; left:40%; top:120px">
+
       </div>
     </div>
   </div>
@@ -60,7 +68,9 @@ export default {
       recipes: [],
       recipeChosen: {},
       hasCookie:false,
-      watchedRecipes: []
+      watchedRecipes: [],
+      randomLoaded: false,
+      lastWatchedLoaded: false
     };
   },
   mounted() {
@@ -70,6 +80,7 @@ export default {
   },
   methods: {
     async updateRecipes() {
+      this.randomLoaded=false;
       let response;
       try {
         this.axios.defaults.withCredentials = true;
@@ -97,11 +108,13 @@ export default {
           });
         }
         this.recipes.push(...response.data);
+        this.randomLoaded=true;
       } catch (error) {
         this.recipes.push(...response.data);
       }
     },
     async getLastWatched(value){
+      this.lastWatchedLoaded=false;
       this.updateCurrentRandoms();
       this.axios.defaults.withCredentials = true;
       let response = await this.axios.get("http://localhost:3000/users/lastWatchedRecipes");
@@ -128,6 +141,7 @@ export default {
       }
 
       this.watchedRecipes.push(...response.data);
+      this.lastWatchedLoaded=true;
     },
     checkCookieAfterRefresh(){
       this.hasCookie=window.$cookies.isKey('session');

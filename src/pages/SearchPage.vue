@@ -34,21 +34,24 @@
         <b-alert  v-model="showDismissibleAlert" variant="warning" dismissible style="text-align:center">
             No recipes found for the inserted query
         </b-alert>
+        <div v-if="recipesLoaded">
+            <RecipePreview style="float:left;"
+                    v-for="r in recipes"
+                    :id="r.id"
+                    :title="r.title"
+                    :ready-in-minutes="r.readyInMinutes"
+                    :image="r.image"
+                    :aggregate-likes="r.aggregateLikes"
+                    :vegetarian="r.vegetarian"
+                    :vegan="r.vegan"
+                    :gluten-free="r.glutenFree"
+                    :inFavorites="r.inFavorites"
+                    :watched="r.watched"
+                    :key="r.id"
+            />
+        </div>
+        <img v-else-if="clickedSearch" src="../assets/35.gif">
 
-        <RecipePreview style="float:left;"
-                v-for="r in recipes"
-                :id="r.id"
-                :title="r.title"
-                :ready-in-minutes="r.readyInMinutes"
-                :image="r.image"
-                :aggregate-likes="r.aggregateLikes"
-                :vegetarian="r.vegetarian"
-                :vegan="r.vegan"
-                :gluten-free="r.glutenFree"
-                :inFavorites="r.inFavorites"
-                :watched="r.watched"
-                :key="r.id"
-        />
     </div>
 </template>
 
@@ -89,7 +92,9 @@
                     { text: '15', value: '15' }
                 ],
                 recipes: [],
-                searchQuery:""
+                searchQuery:"",
+                recipesLoaded:false,
+                clickedSearch:false
             };
         },
         mounted(){
@@ -97,6 +102,7 @@
         },
         methods:{
             async search(){
+                this.clickedSearch=true;
                 let queryParams={};
                 if(this.selectedCuisine!=null) queryParams.cuisine=this.selectedCuisine;
                 if(this.selectedDiet!=null) queryParams.diet=this.selectedDiet;
@@ -137,6 +143,9 @@
                 }
                 if(this.$store.username!="")
                     this.$store.lastSearch=this.recipes;
+
+                this.recipesLoaded=true;
+
             },
             sortByMakingTime(){
                 this.recipes.sort((a,b)=>{
@@ -150,7 +159,10 @@
             },
             updateLastSearch(){
                 if(this.$store.username!="")
+                {
                     this.recipes=this.$store.lastSearch;
+                    this.recipesLoaded=true;
+                }
             }
         }
     };
