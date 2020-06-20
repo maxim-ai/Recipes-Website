@@ -97,7 +97,6 @@ export default {
           username: this.form.username,
           password: this.form.password
         });
-        //this.$store.login();
         this.updateParent();
       } catch (err) {
         console.log(err.response);

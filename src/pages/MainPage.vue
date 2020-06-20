@@ -2,7 +2,7 @@
   <div >
     <div class="column">
       <div >
-        <h2 style="display: inline-block;padding-left:15%;padding-right:5%;"><u>Random recipes</u></h2>
+        <h2 style="display: inline-block;padding-left:15%;padding-right:5%;"><u>Explore those recipes</u></h2>
         <button style="display: inline-block;" @click="updateRecipes">Refresh</button>
       </div>
       <div v-if="randomLoaded">

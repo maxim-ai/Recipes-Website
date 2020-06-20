@@ -28,7 +28,7 @@
         <b-form-input id="username" v-model="$v.form.username.$model" type="text" :state="validateState('username')"></b-form-input>
         <b-form-invalid-feedback v-if="!$v.form.username.required"> Username is required </b-form-invalid-feedback>
         <b-form-invalid-feedback v-else-if="!$v.form.username.length">Username length should be between 3-8 characters long</b-form-invalid-feedback>
-        <b-form-invalid-feedback v-if="!$v.form.username.alpha">Username alpha</b-form-invalid-feedback>
+        <b-form-invalid-feedback v-if="!$v.form.username.alpha">Username must contain letter only</b-form-invalid-feedback>
       </b-form-group>
 
 
