@@ -53,14 +53,12 @@
 <script>
 import RecipePreview from "../components/RecipePreview";
 import Login from "../components/Login";
-import RecipeFull from "../components/RecipeFull";
 import VueCookies from 'vue-cookies';
 
 export default {
   components: {
     RecipePreview,
     Login,
-    // RecipeFull,
   },
   data() {
     return {
@@ -114,34 +112,42 @@ export default {
       }
     },
     async getLastWatched(value){
-      this.lastWatchedLoaded=false;
-      this.updateCurrentRandoms();
-      this.axios.defaults.withCredentials = true;
-      let response = await this.axios.get("http://localhost:3000/users/lastWatchedRecipes");
-
-      this.watchedRecipes = [];
-      if(window.$cookies.isKey('session'))
-      {
-        let ids = "[";
-        response.data.forEach(recipe => {
-          ids = ids + recipe.id + ",";
-        });
-        ids = ids.substring(0, ids.length - 1) + "]";
-        const infos = await this.axios.get(
-          "http://localhost:3000/users/userRecipeInfo/" + ids
-        );
-        response.data.forEach(recipe => {
-          for (const [key, value] of Object.entries(infos.data)) {
-            if (recipe.id == key) {
-              recipe.watched = value.watched;
-              recipe.inFavorites = value.inFavorites;
-            }
+      try{
+          this.lastWatchedLoaded=false;
+          this.updateCurrentRandoms();
+          this.axios.defaults.withCredentials = true;
+          let response = await this.axios.get("http://localhost:3000/users/lastWatchedRecipes");
+    
+          this.watchedRecipes = [];
+          if(window.$cookies.isKey('session'))
+          {
+            let ids = "[";
+            response.data.forEach(recipe => {
+              ids = ids + recipe.id + ",";
+            });
+            ids = ids.substring(0, ids.length - 1) + "]";
+            const infos = await this.axios.get(
+              "http://localhost:3000/users/userRecipeInfo/" + ids
+            );
+            response.data.forEach(recipe => {
+              for (const [key, value] of Object.entries(infos.data)) {
+                if (recipe.id == key) {
+                  recipe.watched = value.watched;
+                  recipe.inFavorites = value.inFavorites;
+                }
+              }
+            });
           }
-        });
+    
+          this.watchedRecipes.push(...response.data);
+          this.lastWatchedLoaded=true;
       }
+      catch(erroe)
+      {
+        this.watchedRecipes=[];
+        this.lastWatchedLoaded=true;
 
-      this.watchedRecipes.push(...response.data);
-      this.lastWatchedLoaded=true;
+      }
     },
     checkCookieAfterRefresh(){
       this.hasCookie=window.$cookies.isKey('session');

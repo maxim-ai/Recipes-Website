@@ -37,6 +37,7 @@
         <b-form-invalid-feedback v-if="!$v.form.password.required"> Password is required </b-form-invalid-feedback>
         <b-form-text v-else-if="$v.form.password.$error" text-variant="info"> Your password should be <strong>strong</strong>. <br /> For that, your password should be also: </b-form-text>
         <b-form-invalid-feedback v-if="$v.form.password.required && !$v.form.password.length" > Have length between 5-10 characters long </b-form-invalid-feedback>
+        <b-form-invalid-feedback v-if="$v.form.password.required && !$v.form.password.special" > Have at least one numeric char and one special char </b-form-invalid-feedback>
       </b-form-group>
 
       <b-form-group id="input-group-confirmedPassword" label-cols-sm="3" label="Confirm Password:" label-for="confirmedPassword" >
@@ -75,7 +76,8 @@ import {
   maxLength,
   alpha,
   sameAs,
-  email
+  email,
+  helpers
 } from "vuelidate/lib/validators";
 
 export default {
@@ -119,7 +121,9 @@ export default {
       },
       password: {
         required,
-        length: (p) => minLength(5)(p) && maxLength(10)(p)
+        length: (p) => minLength(5)(p) && maxLength(10)(p),
+        special: (u) =>new RegExp("^(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*])").test(u),
+
       },
       confirmedPassword: {
         required,
@@ -143,10 +147,15 @@ export default {
     async Register() {
       try {
         const response = await this.axios.post(
-          "https://test-for-3-2.herokuapp.com/user/Register",
+          "http://localhost:3000/auth/register",
           {
             username: this.form.username,
-            password: this.form.password
+            password: this.form.password,
+            firstname: this.form.firstname,
+            lastname: this.form.lastname,
+            country: this.form.country,
+            email: this.form.email,
+            image: this.form.image,
           }
         );
         this.$router.push("/login");
