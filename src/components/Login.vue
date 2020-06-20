@@ -102,7 +102,9 @@ export default {
         console.log(err.response);
         this.form.submitError = err.response.data.message;
       }
-      this.$store.username=this.form.username;
+      // this.$store.username=this.form.username;
+      // localStorage.setItem("username", this.form.username);
+      this.$localStorage.set("username", this.form.username);
     },
     onLogin() {
       // console.log("login method called");

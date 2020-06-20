@@ -10,14 +10,15 @@
         <b-navbar-nav>
           <b-nav-item  to="/" >MainPage</b-nav-item>
           <b-nav-item to="/search" tag="a">Search</b-nav-item>
-          <b-nav-item href="#">About</b-nav-item>
+          <b-nav-item to="/about">About</b-nav-item>
           
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
           <b-navbar-brand  v-if="!this.cookiebla">Hello Guest</b-navbar-brand>
-          <b-navbar-brand v-else>{{this.$store.username}}</b-navbar-brand>
+          <!-- <b-navbar-brand v-else>{{this.$store.username}}</b-navbar-brand> -->
+          <b-navbar-brand v-else>{{this.$localStorage.get('username')}}</b-navbar-brand>
           <b-nav-item  to="/Login" v-if="!this.cookiebla">Login</b-nav-item>
           <b-nav-item  to="/register" v-if="!this.cookiebla">Register</b-nav-item>
 
@@ -57,10 +58,12 @@ export default {
   methods:{
     updateCookie(){
       this.username=this.$store.username;
+      // this.cookiebla=window.$cookies.isKey('session');
     },
     logout(){
       window.$cookies.remove('session');
-      this.$store.username="";
+      // this.$store.username="";
+      this.$localStorage.remove('username')
       this.$store.lastSearch=[];
       this.$parent.$data.hasCookie=window.$cookies.isKey('session');
       this.$parent.$children[1].$data.hasCookie=false;

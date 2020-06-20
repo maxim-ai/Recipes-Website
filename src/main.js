@@ -40,6 +40,9 @@ import axios from "axios";
 import routes from "./routes";
 import VueRouter from "vue-router";
 
+import VueLocalStorage from 'vue-localstorage'
+Vue.use(VueLocalStorage)
+
 //Global components
 // import RecipePreview from "../components/RecipePreview";
 // Vue.component("RecipePreview", RecipePreview);
@@ -105,7 +108,7 @@ Vue.use(VueAxios, axios);
 
 Vue.config.productionTip = false;
 
-// const shared_data = {
+// const local_data = {
 //   username: localStorage.username,
 //   login(username) {
 //     localStorage.setItem("username", username);

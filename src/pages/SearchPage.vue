@@ -180,8 +180,10 @@
                     }
                     this.recipes.push(...response.data);
                 }
-                if(this.$store.username!="")
+                if(this.$localStorage.get('username')!="")
                     this.$store.lastSearch=this.recipes;
+                // if(this.$localStorage.get('username')!="")
+                    // this.$localStorage.set('lastSearch',this.recipes);
 
                 this.recipesLoaded=true;
 
@@ -197,10 +199,12 @@
                 })
             },
             updateLastSearch(){
-                if(this.$store.username!="")
+                if(this.$localStorage.get('username')!="")
                 {
                     this.recipes=this.$store.lastSearch;
                     this.recipesLoaded=true;
+                    // this.recipes=this.$localStorage.get('lastSearch');
+                    // this.recipesLoaded=true;
                 }
             }
         }
