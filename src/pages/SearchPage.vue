@@ -63,6 +63,7 @@
         },
         data() {
             return {
+                name: "SearchPage",
                 showDismissibleAlert:false,
                 selectedCuisine: null,
                 optionsCuisine: [

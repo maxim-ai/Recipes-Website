@@ -26,6 +26,7 @@
         },
         data() {
             return {
+                name: "PersonalRecipesPage",
                 recipes: [],
                 recipeChosen: {}
             };
@@ -38,7 +39,6 @@
                 let response;
                 try {
                     this.axios.defaults.withCredentials = true;
-
                     response = await this.axios.get(
                         "http://localhost:3000/users/personalRecipes"
                     );

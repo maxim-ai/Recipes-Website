@@ -109,7 +109,10 @@ export default {
   },
   methods:{
     checkIfCookie(){
-      return window.$cookies.isKey('session');
+      if(this.$parent.$data.name==="PersonalRecipesPage")
+        return false;
+      else
+        return window.$cookies.isKey('session');
     }
   }
 };

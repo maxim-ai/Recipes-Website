@@ -32,6 +32,7 @@
         },
         data() {
             return {
+                name: "FavoritesPage",
                 recipes: [],
                 recipeChosen: {},
                 recipesLoaded:false
