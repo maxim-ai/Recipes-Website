@@ -51,14 +51,14 @@
 </template>
 
 <script>
-import RecipePreview from "../components/RecipePreview";
-import Login from "../components/Login";
+// import RecipePreview from "../components/RecipePreview";
+// import Login from "../components/Login";
 import VueCookies from 'vue-cookies';
 
 export default {
   components: {
-    RecipePreview,
-    Login,
+    // RecipePreview,
+    // Login,
   },
   data() {
     return {

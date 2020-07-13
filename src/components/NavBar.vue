@@ -57,7 +57,8 @@ export default {
   },
   methods:{
     updateCookie(){
-      this.username=this.$store.username;
+      this.username=this.$localStorage.get("username");
+      // this.username=this.$store.username;
       // this.cookiebla=window.$cookies.isKey('session');
     },
     logout(){

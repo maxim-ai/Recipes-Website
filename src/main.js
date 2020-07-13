@@ -1,34 +1,10 @@
 import "@babel/polyfill";
 import "mutationobserver-shim";
-// import Vue from "vue";
 import "./plugins/bootstrap-vue";
 
 import {shared_data} from "./shared_data";
 Vue.prototype.$store=shared_data;
-// import App from "./App.vue";
-// import VueAxios from "vue-axios";
-// import axios from "axios";
-// import routes from "./routes";
-// import VueRouter from "vue-router"
-// import Vuelidate from "vuelidate";
-//
-// Vue.use(VueRouter);
-// const router = new VueRouter({
-//   mode: "history",
-//   routes: routes
-// });
-//
-// Vue.use(Vuelidate);
-//
-// Vue.use(VueAxios, axios);
-//
-// Vue.config.productionTip = false;
-//
-// new Vue({
-//   render: function(h) {
-//     return h(App);
-//   }
-// }).$mount("#app");
+
 
 import Vue from "vue";
 import App from "./App.vue";
@@ -44,8 +20,10 @@ import VueLocalStorage from 'vue-localstorage'
 Vue.use(VueLocalStorage)
 
 //Global components
-// import RecipePreview from "../components/RecipePreview";
-// Vue.component("RecipePreview", RecipePreview);
+import RecipePreview from "./components/RecipePreview";
+Vue.component("RecipePreview", RecipePreview);
+import Login from "./components/Login";
+Vue.component("Login", Login);
 
 Vue.use(VueRouter);
 const router = new VueRouter({
@@ -108,30 +86,11 @@ Vue.use(VueAxios, axios);
 
 Vue.config.productionTip = false;
 
-// const local_data = {
-//   username: localStorage.username,
-//   login(username) {
-//     localStorage.setItem("username", username);
-//     this.username = username;
-//     console.log("login", this.username);
-//   },
-//   logout() {
-//     console.log("logout");
-//     localStorage.removeItem("username");
-//     this.username = undefined;
-//   }
-// };
-// console.log(shared_data);
-// Vue.prototype.$root.store = shared_data;
+
 
 
 new Vue({
   router,
-  // data() {
-  //   return {
-  //     store: shared_data
-  //   };
-  // },
   methods: {
     toast(title, content, variant = null, append = false) {
       this.$bvToast.toast(`${content}`, {

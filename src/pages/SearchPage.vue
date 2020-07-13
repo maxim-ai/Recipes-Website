@@ -56,10 +56,10 @@
 </template>
 
 <script>
-    import RecipePreview from "../components/RecipePreview";
+    // import RecipePreview from "../components/RecipePreview";
     export default {
         components: {
-            RecipePreview
+            // RecipePreview
         },
         data() {
             return {
