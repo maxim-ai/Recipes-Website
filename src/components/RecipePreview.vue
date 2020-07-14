@@ -32,7 +32,7 @@
              src="../assets/glutenFree_icon.png" width="80" height="80">
         <img style="position: absolute; bottom: 160px; left: -85px;" id="else" v-else src="../assets/gluten_icon.png"
              width="80" height="80">
-        <img class="image" :src="image" width="500" height="250">
+        <img class="image" :src="image" width="500" height="250" style="border-radius: 25px;">
       </div>
     </router-link>
      
@@ -125,7 +125,7 @@ export default {
 
 .recipe-preview {
   width: 500px;
-  border: 1px solid #ccbba5;
+  /* border: 1px solid #ccbba5; */
   position: relative;
   margin: 3px 3px 10px 10px;
   transition: transform 0.2s;
@@ -139,7 +139,7 @@ export default {
 .recipe-footer {
   position: absolute;
   bottom: 0px;
-  
+  border-radius: 0px 0px 0px 25px;
   background: rgba(0, 0, 0, 0.6);
   color: white;
 }
@@ -147,6 +147,7 @@ export default {
 .recipe-title {
   padding: 5px 5px;
   font-weight: bold;
+  font-family: "Comic Sans MS", cursive, sans-serif;
   width: 100%;
   font-size: 12pt;
   text-align: left;

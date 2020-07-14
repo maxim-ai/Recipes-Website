@@ -2,9 +2,10 @@
   <div >
     <div class="column">
       <div >
-        <h2 style="display: inline-block;padding-left:15%;padding-right:5%;"><u>Explore those recipes</u></h2>
+        <h2 style="display: inline-block;padding-left:15%;padding-right:5%; font-family: Comic Sans MS;"><u>Explore those recipes</u></h2>
         <button style="display: inline-block;" @click="updateRecipes">Refresh</button>
       </div>
+      <br>
       <div v-if="randomLoaded">
         <RecipePreview 
         v-for="r in recipes"
@@ -28,7 +29,7 @@
     <div class="column">
       <Login @clicked="getLastWatched" v-if="!hasCookie" style="position: absolute; top: 30%;" />
       <div v-else >
-        <h2 style="padding-left:20%"><u>Last watched recipes</u></h2>
+        <h2 style="padding-left:20%; font-family: Comic Sans MS;"><u>Last watched recipes</u></h2><br>
         <div v-if="lastWatchedLoaded">
           <RecipePreview v-for="r in watchedRecipes"
             :id="r.id"

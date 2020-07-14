@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 style="text-align:center">Favorite Recipes</h1>
+        <h1 style="text-align:center; font-family: Comic Sans MS;">Favorite Recipes</h1>
         <br>
         <br>
         <div v-if="recipesLoaded" >
