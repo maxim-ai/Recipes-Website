@@ -1,6 +1,6 @@
 <template>
     <div style="text-align:center">
-        <h1>Personal Recipes</h1>
+        <h1 style="font-family: Comic Sans MS;">Personal Recipes</h1>
         <br>
         <br>
         <RecipePreview style="float:left;"

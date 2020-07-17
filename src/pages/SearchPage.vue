@@ -1,7 +1,7 @@
 
 <template>
     <div style="text-align:center" >
-        <h1 >Search recipes</h1>
+        <h1 style="font-family: Comic Sans MS;" >Search recipes</h1>
         <input
                 v-model="searchQuery"
                 type="text"

@@ -12,7 +12,7 @@
     <div class="recipe-body">
         <div class="row">
           <div class="first_column">
-            <h2><u>Ingrediants</u></h2>
+            <h2 style="font-family: Comic Sans MS;"><u>Ingrediants</u></h2>
             <br>
             <ul v-for="i in ingredients" :key="i.ingredient_name">
               <li>
@@ -23,7 +23,7 @@
             </ul>
           </div>
           <div class="second_column">
-            <h2 style="padding-left: 30%;"><u>Instructions</u></h2>
+            <h2 style="padding-left: 30%; font-family: Comic Sans MS;"><u>Instructions</u></h2>
             <br>
             <ol >
               <li v-for="i in instructions" :key="i.instructionNum">

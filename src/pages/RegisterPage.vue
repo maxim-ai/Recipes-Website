@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 class="title">Register</h1>
+    <h1 class="title" style="font-family: Comic Sans MS;">Register</h1>
     <b-form @submit.prevent="onRegister" @reset.prevent="onReset">
 
       <b-form-group id="input-group-firstname" label-cols-sm="3" label="First name:" label-for="firstname">
