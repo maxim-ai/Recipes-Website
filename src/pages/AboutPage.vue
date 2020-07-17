@@ -6,7 +6,7 @@
     </div>
     <div>
         <p>
-          <img src="../assets/chefs.jpg">
+          <img style="width:650px;height:500px;margin-right:50px;margin-left:50px;float: left" src="../assets/chefs.jpg">
           <br>
           <br>
           <br>
@@ -31,13 +31,3 @@ export default {
      name: "AboutPage",
 }
 </script>
-
-<style>
-  img {
-    width:650px;
-    height:500px;
-    margin-right:50px;
-    margin-left:50px;
-    float: left;
-  }
-</style>

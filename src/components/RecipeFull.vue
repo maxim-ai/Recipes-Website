@@ -7,12 +7,12 @@
         <li><img src="../assets/like_icon.png" width="60" height="60"/>{{ aggregateLikes }}</li>
         <li><img src="../assets/diners_icon.png" width="60" height="60"/>  {{ numOfDiners }}</li>
         <!-- <br> -->
-        <li v-if="vegetarian"><img id="if"  src="../assets/vegetarian_icon.png" width="60" height="60"></li>
-        <li v-else><img id="else" src="../assets/notVegetarian_icon.png" width="60" height="60"></li>
-        <li v-if="vegan"><img id="if" src="../assets/vegan_icon.png" width="60" height="60"></li>
-        <li v-else><img id="else" src="../assets/notVegan_icon.png" width="60" height="60"></li>
-        <li v-if="glutenFree"><img id="if" src="../assets/glutenFree_icon.png" width="60" height="60"></li>
-        <li v-else><img id="else" src="../assets/gluten_icon.png" width="60" height="60"></li>
+        <li v-if="vegetarian"><img id="if"  src="../assets/vegetarian_icon.png" width="80" height="80"></li>
+        <li v-else><img id="else" src="../assets/notVegetarian_icon.png" width="80" height="80"></li>
+        <li v-if="vegan"><img id="if" src="../assets/vegan_icon.png" width="80" height="80"></li>
+        <li v-else><img id="else" src="../assets/notVegan_icon.png" width="80" height="80"></li>
+        <li v-if="glutenFree"><img id="if" src="../assets/glutenFree_icon.png" width="80" height="80"></li>
+        <li v-else><img id="else" src="../assets/gluten_icon.png" width="80" height="80"></li>
       </ul>
       <ul class="left_side_props">
         <li v-if="!isPersonalRecipe&&inFavorites&&checkIfCookie()"><img id="if" src="../assets/full_star_icon.png" width="60" height="60"></li>
