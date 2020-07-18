@@ -10,7 +10,7 @@
           <br>
           <br>
           <br>
-          This is the <b>Babushka recipes</b> website, here you can easily find recipes from all cuisines.<br/>
+          This is the <b>Babushka Recipes</b> website, here you can easily find recipes from all cuisines.<br/>
           You can also create your own account and save you favorite recipes for later usage,<br>
           in addition you can explore new delicious recipes, and get all the ingredients and instructions to cook them at home.<br><br><br>
             The website was designed by two Full-Stack developers Sean Avrutin  <b>(319084893)</b> and Maxim Zhivodrov  <b>(317649606)</b>.<br>
