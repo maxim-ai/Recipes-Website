@@ -11,7 +11,11 @@
           <br>
           <br>
           This is the <b>Babushka recipes</b> website, here you can easily find recipes from all cuisines.<br/>
+<<<<<<< HEAD
           You can also create your own account and save you favorite recipes for later usage,<br>
+=======
+          You can also create your own account and save you favorite recipes for later,<br>
+>>>>>>> b7abdb7368637bdab013f24b746da717d30c538b
           in addition you can explore new delicious recipes, and get all the ingredients and instructions  to make them at home.<br><br><br>
             The website was designed by two Full-Stack developers Sean Avrutin  <b>(319084893)</b> and Maxim Zhivodrov  <b>(317649606)</b>.<br>
           The server side is programed with Node js, and the client side with Vue js.
