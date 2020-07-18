@@ -11,10 +11,10 @@
           <br>
           <br>
           This is the <b>Babushka recipes</b> website, here you can easily find recipes from all cuisines.<br/>
-          You can also create your own acount and save you favorite recipes for later,<br>
-          in addition you can add your own reciped, as well as your family recipes.<br><br><br>
-          The website was designed by two proffesional Full-Stack developers.<br>
-          The server side is programed with Node js, and the client side with Vue js.
+          You can also create your own account and save you favorite recipes for later usage,<br>
+          in addition you can explore new delicious recipes, and get all the ingredients and instructions  to make them at home.<br><br><br>
+            The website was designed by two Full-Stack developers Sean Avrutin  <b>(319084893)</b> and Maxim Zhivodrov  <b>(317649606)</b>.<br>
+          The server side is programmed with Node js, and the client side with Vue js.
           <br><br>
           <u>Links for the Project:</u><br>
           <a href="https://github.com/SISE-Web-Development-Environments/assignment-3-3_sean_maxim">Full Project (3.3 + 3.2 + 3.1)</a><br>

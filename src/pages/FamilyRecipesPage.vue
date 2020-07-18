@@ -1,16 +1,19 @@
 <template>
     <div>
-        <RecipeFamily
-            v-for="r in recipes"
-            :id="r.id"
-            :title="r.title"
-            :family-member="r.familyMember"
-            :image="r.image"
-            :special-occasion="r.specialOccasion"
-            :ingredients="r.ingredients"
-            :instructions="r.instructions"
-            :key="r.id"
-        />
+        <div v-if="recipesLoaded">
+            <RecipeFamily
+                    v-for="r in recipes"
+                    :id="r.id"
+                    :title="r.title"
+                    :family-member="r.familyMember"
+                    :image="r.image"
+                    :special-occasion="r.specialOccasion"
+                    :ingredients="r.ingredients"
+                    :instructions="r.instructions"
+                    :key="r.id"
+            />
+        </div>
+        <img style="position: absolute; left:45%;top:20%" v-else src="../assets/35.gif">
     </div>
 </template>
 
@@ -24,6 +27,7 @@
         data() {
             return {
                 recipes: [],
+                recipesLoaded:false
             };
         },
         mounted(){
@@ -37,6 +41,7 @@
                 );
                 this.recipes=[];
                 this.recipes.push(...response.data);
+                this.recipesLoaded=true;
             }
         }
     }
