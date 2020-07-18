@@ -13,10 +13,10 @@ Click on the refresh button and three other random recipes will appear.
 
 To get a look of how a full website looks like you can use our developers username and password:
 
--username: seanav
--password: s1234!
--username:maximzh
--password: m1234!
+- username: seanav
+- password: s1234!
+- username:maximzh
+- password: m1234!
 
 - On the navbar you can see a search tab to find recipes by query words and filter them by cuisine, diet and intolarence.
 You can search 5/10/15 recipes by one click and sort them by popularity or by making time.
