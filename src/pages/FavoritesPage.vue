@@ -25,11 +25,8 @@
 </template>
 
 <script>
-    // import RecipePreview from "../components/RecipePreview";
     export default {
-        components: {
-            // RecipePreview,
-        },
+        components: {},
         data() {
             return {
                 name: "FavoritesPage",

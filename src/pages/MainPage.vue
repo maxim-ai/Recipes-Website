@@ -52,15 +52,10 @@
 </template>
 
 <script>
-// import RecipePreview from "../components/RecipePreview";
-// import Login from "../components/Login";
 import VueCookies from 'vue-cookies';
 
 export default {
-  components: {
-    // RecipePreview,
-    // Login,
-  },
+  components: {},
   data() {
     return {
       name:"MainPage",
