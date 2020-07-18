@@ -3,13 +3,10 @@
 </template>
 
 <script>
-// import Login from "../components/Login";
 
 
 export default {
-  components: {
-    // Login
-  },
+  components: {},
   data(){
     return{
       name:"LoginPage"
