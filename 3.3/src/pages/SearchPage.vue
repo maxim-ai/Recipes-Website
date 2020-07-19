@@ -143,7 +143,7 @@
                 let queryParams={};
                 if(this.selectedCuisine!=null) queryParams.cuisine=this.selectedCuisine;
                 if(this.selectedDiet!=null) queryParams.diet=this.selectedDiet;
-                if(this.selectedIntolerance!=null) queryParams.intolerance=this.selectedIntolerance;
+                if(this.selectedIntolerance!=null) queryParams.intolerances=this.selectedIntolerance;
 
                 let response = await this.axios.get(
                     "http://localhost:3000/recipes/search/query/" + this.searchQuery + "/numToShow/" + this.selectedNum, {
